@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   void getCurrentAppTheme() async {
-    themeChangeProvider.darkDarkTheme = await themeChangeProvider.darkThemePrefs
+    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePrefs
         .getTheme();
   }
 
@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
-            theme: Styles.themeData(themeProvider.darkDarkTheme, context),
+            theme: Styles.themeData(themeProvider.darkTheme, context),
             home: const BottomBarScreen(),
           );
         },
