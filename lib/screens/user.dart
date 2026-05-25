@@ -25,7 +25,7 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-    final Color color = themeState.darkTheme ? Colors.white : Colors.black;
+    final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -99,20 +99,20 @@ class _UserScreenState extends State<UserScreen> {
                   color: color,
                 ),
                 SwitchListTile(
-                  value: themeState.darkTheme,
+                  value: themeState.getDarkTheme,
                   onChanged: (bool value) {
                     setState(() {
-                      themeState.darkTheme = value;
+                      themeState.setDarkTheme = value;
                     });
                   },
                   title: TextWidget(
-                    text: themeState.darkTheme ? "Dark Mode" : "Light Mode",
+                    text: themeState.getDarkTheme ? "Dark Mode" : "Light Mode",
                     color: color,
                     textSize: 22,
                     isTitle: true,
                   ),
                   secondary: Icon(
-                    themeState.darkTheme
+                    themeState.getDarkTheme
                         ? Icons.dark_mode_outlined
                         : Icons.light_mode_outlined,
                   ),

@@ -17,15 +17,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Center(
         child: SwitchListTile(
-          value: themeState.darkTheme,
+          value: themeState.getDarkTheme,
           onChanged: (bool value) {
             setState(() {
-              themeState.darkTheme = value;
+              themeState.setDarkTheme = value;
             });
           },
           title: Text("Theme"),
           secondary: Icon(
-            themeState.darkTheme
+            themeState.getDarkTheme
                 ? Icons.dark_mode_outlined
                 : Icons.light_mode_outlined,
           ),
