@@ -7,13 +7,13 @@ class TextWidget extends StatelessWidget {
     required this.color,
     required this.textSize,
     this.isTitle = false,
-    this.maxLine = 10,
+    this.maxLines = 10,
   });
   final String text;
   final Color color;
   final double textSize;
   final bool isTitle;
-  final int maxLine;
+  final int maxLines;
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -24,7 +24,7 @@ class TextWidget extends StatelessWidget {
         fontSize: textSize,
         fontWeight: isTitle ? FontWeight.bold : FontWeight.normal,
       ),
-      maxLines: maxLine,
+      maxLines: maxLines,
     );
   }
 }
