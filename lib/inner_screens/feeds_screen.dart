@@ -96,7 +96,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
               padding: EdgeInsets.zero,
-              childAspectRatio: size.width / (size.height * 0.59),
+              childAspectRatio: size.width / (size.height * 0.79),
               children: List.generate(10, (index) {
                 return const FeedsWidget();
               }),
