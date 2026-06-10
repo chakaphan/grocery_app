@@ -7,7 +7,7 @@ class GlobalMethods {
   }
 
   static Future<void> warningDialog({
-    required String tital,
+    required String title,
     required String subtitle,
     required Function fct,
     required BuildContext context,
@@ -25,7 +25,7 @@ class GlobalMethods {
                 fit: BoxFit.fill,
               ),
               const SizedBox(width: 8),
-              Text(tital),
+              Text(title),
             ],
           ),
           content: Text(subtitle),

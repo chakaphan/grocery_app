@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery_app/provider/dark_theme_provider.dart';
+import 'package:grocery_app/screens/orders/orders_screen.dart';
+import 'package:grocery_app/screens/viewed_recently/viewed_recently.dart';
 import 'package:grocery_app/screens/wishlist/wishlist_screen.dart';
 import 'package:grocery_app/services/global_methods.dart';
 import 'package:grocery_app/widgets/text_widget.dart';
@@ -79,7 +81,12 @@ class _UserScreenState extends State<UserScreen> {
                 _listTile(
                   title: "Orders",
                   icon: IconlyLight.bag,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                      ctx: context,
+                      routeName: OrdersScreen.routeName,
+                    );
+                  },
                   color: color,
                 ),
                 _listTile(
@@ -96,7 +103,12 @@ class _UserScreenState extends State<UserScreen> {
                 _listTile(
                   title: "Viewed",
                   icon: IconlyLight.show,
-                  onPressed: () {},
+                  onPressed: () {
+                    GlobalMethods.navigateTo(
+                      ctx: context,
+                      routeName: ViewedRecentlyScreen.routeName,
+                    );
+                  },
                   color: color,
                 ),
                 _listTile(
@@ -129,7 +141,7 @@ class _UserScreenState extends State<UserScreen> {
                   icon: IconlyLight.logout,
                   onPressed: () {
                     GlobalMethods.warningDialog(
-                      tital: "Sign Out",
+                      title: "Sign Out",
                       subtitle: "Do you wanna sign out?",
                       fct: () {},
                       context: context,
