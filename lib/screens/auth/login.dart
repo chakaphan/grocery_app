@@ -1,13 +1,18 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery_app/consts/contss.dart';
-import 'package:grocery_app/widgets/auth_button.dart';
-import 'package:grocery_app/widgets/google_button.dart';
-import 'package:grocery_app/widgets/text_widget.dart';
+import 'package:grocery_app/screens/auth/forget_pass.dart';
+import 'package:grocery_app/screens/auth/register.dart';
+import 'package:grocery_app/services/global_methods.dart';
+
+import '../../consts/contss.dart';
+import '../../widgets/auth_button.dart';
+import '../../widgets/google_button.dart';
+import '../../widgets/text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  static const routeName = '/LoginScreen';
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -15,15 +20,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final _passTextController = TextEditingController();
   final _passFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   var _obscureText = true;
-
   @override
   void dispose() {
     _emailTextController.dispose();
-    _passwordTextController.dispose();
+    _passTextController.dispose();
     _passFocusNode.dispose();
     super.dispose();
   }
@@ -32,8 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
-      print('everything is valid');
-      _formKey.currentState!.save();
+      print('THe form is valid');
     }
   }
 
@@ -48,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
             itemBuilder: (BuildContext context, int index) {
               return Image.asset(
                 Constss.authImagesPaths[index],
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               );
             },
             autoplay: true,
@@ -63,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const SizedBox(height: 120),
+                  const SizedBox(height: 120.0),
                   TextWidget(
                     text: 'Welcome Back',
                     color: Colors.white,
@@ -72,11 +75,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 8),
                   TextWidget(
-                    text: 'Sign in to continue',
+                    text: "Sign in to continue",
                     color: Colors.white,
                     textSize: 18,
+                    isTitle: false,
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 30.0),
                   Form(
                     key: _formKey,
                     child: Column(
@@ -107,20 +111,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        SizedBox(height: 12),
+
                         //Password
                         TextFormField(
                           textInputAction: TextInputAction.done,
                           onEditingComplete: () {
                             _submitFormOnLogin();
                           },
-                          controller: _passwordTextController,
+                          controller: _passTextController,
                           focusNode: _passFocusNode,
                           obscureText: _obscureText,
                           keyboardType: TextInputType.visiblePassword,
                           validator: (value) {
                             if (value!.isEmpty || value.length < 7) {
-                              return 'Password must be at least 7 characters long';
+                              return 'Please enter a valid password';
                             } else {
                               return null;
                             }
@@ -157,11 +162,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.topRight,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        GlobalMethods.navigateTo(
+                          ctx: context,
+                          routeName: ForgetPasswordScreen.routeName,
+                        );
+                      },
                       child: const Text(
                         'Forget password?',
+                        maxLines: 1,
                         style: TextStyle(
-                          color: Colors.lightBlueAccent,
+                          color: Colors.lightBlue,
                           fontSize: 18,
                           decoration: TextDecoration.underline,
                           fontStyle: FontStyle.italic,
@@ -170,7 +181,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  AuthButton(fct: () {}, buttonText: 'Login'),
+                  AuthButton(fct: _submitFormOnLogin, buttonText: 'Login'),
                   const SizedBox(height: 10),
                   const GoogleButton(),
                   const SizedBox(height: 10),
@@ -190,23 +201,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 10),
                   AuthButton(
                     fct: () {},
-                    buttonText: 'Continue as Guest',
+                    buttonText: 'Continue as a guest',
                     primary: Colors.black,
                   ),
                   const SizedBox(height: 10),
                   RichText(
                     text: TextSpan(
-                      text: "Don't have an account? ",
+                      text: 'Don\'t have an account?',
                       style: const TextStyle(color: Colors.white, fontSize: 18),
                       children: [
                         TextSpan(
-                          text: 'Sign up',
+                          text: '  Sign up',
                           style: const TextStyle(
                             color: Colors.lightBlue,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                           ),
-                          recognizer: TapGestureRecognizer()..onTap = () {},
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              GlobalMethods.navigateTo(
+                                ctx: context,
+                                routeName: RegisterScreen.routeName,
+                              );
+                            },
                         ),
                       ],
                     ),
